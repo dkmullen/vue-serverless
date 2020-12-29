@@ -11,21 +11,24 @@
 <body>
     <section id="app">
         <form class="ui form" id="contactForm">
-            <h1>{{form.title}}</h1>
-            <div class="field">
+            <h1>{{title}}</h1>
+            <div class="field" v-bind:class="{ error: name.error }">
               <label>Name</label>
-              <input id="name" type="text" name="name" v-model="form.name" required>
+              <input id="name" type="text" name="name" v-model="name.value" required>
+              <div class="error-message">{{ name.errorMessage }}</div>
             </div>
-            <div class="field">
+            <div class="field" id="email" v-bind:class="{ error: email.error }">
               <label>Email</label>
-              <input id="email`" type="email" name="email" v-model="form.email" required>
+              <input type="email" name="email" v-model="email.value" required>
+              <div class="error-message">{{ email.errorMessage }}</div>
             </div>
-            <div class="field">
+            <div class="field" v-bind:class="{ error: message.error }">
                 <label>Message</label>
-                <textarea id="message" v-model="form.message" required>{{ form.message }}</textarea>
+                <textarea id="message" v-model="message.value" required>{{ message }}</textarea>
+                <div class="error-message">{{ message.errorMessage }}</div>
               </div>
-            <button class="ui button" type="submit" id="submit" @click.prevent="submit">Submit</button>
-            <div id="toast">{{ form.toast }}</div>
+            <button class="ui button" type="submit" id="submit" @click.prevent="checkform">Submit</button>
+            <div id="toast">{{ toast }}</div>
           </form>
     </section>
     <script type="text/javascript" src="main.js"></script>

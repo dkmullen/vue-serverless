@@ -6,3 +6,8 @@ body {
 #toast {
     height: 1rem;
 }
+
+.error-message {
+    color: #9f3a38;
+    height: 1rem;
+}
