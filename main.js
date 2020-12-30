@@ -1,4 +1,4 @@
-const url = ''
+const url = 'https://sv0i991s0e.execute-api.us-east-2.amazonaws.com/dev/email/send'
 const submit = document.getElementById('submit')
 
 var app = new Vue({
@@ -21,7 +21,7 @@ var app = new Vue({
             value: ''
         },
         toast: '',
-        errors: ['Required field', 'Only text is permitted', 'Invalid email address', ''],
+        errors: ['Required field', 'Prohibited character detected', 'Invalid email address'],
         errorCount: 0
     },
     methods: {
@@ -46,12 +46,18 @@ var app = new Vue({
                 this.email.errorMessage = this.errors[2];
                 this.errorCount++;
             }
+            if (!this.message.value) {
+                this.message.error = true;
+                this.message.errorMessage = this.errors[0];
+                this.errorCount++;
+
+            }
             if (this.errorCount === 0) {
                 this.submit();
             }
         },
         validName(name) {
-            var re = /^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$/;
+            var re = /^\s*[A-Za-z0-9]+(?:\s+[A-Za-z0-9]+)*\s*$/; // needs refined
             return re.test(name);  
         },
         validEmail(email) {
@@ -74,7 +80,7 @@ var app = new Vue({
             const payload = {
                 name: app.name.value,
                 email: app.email.value,
-                message: app.message.value
+                message: app.message.value.replace(/[|&;$%@"<>()+,]/g, '') // Strips out too much
             }
             post(url, payload, function (err,res)  {
                 if (err) { return error(err) }
