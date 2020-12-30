@@ -16,7 +16,6 @@ return {
 }
 
 function generateError (code, err) {
-    console.log(err)
     return {
         statusCode: code,
         headers: {
@@ -39,16 +38,16 @@ function generateEmailParams (body) {
         Destination: { ToAddresses: [myEmail] },
         ReplyToAddresses: [email],
         Message: {
-        Body: {
-            Text: {
-            Charset: 'UTF-8',
-            Data: `Message sent from email ${email} by ${name} \Message: ${message}`
+            Body: {
+                Text: {
+                Charset: 'UTF-8',
+                Data: `Message sent from email ${email} by ${name} \Message: ${message}`
+                }
+            },
+            Subject: {
+                Charset: 'UTF-8',
+                Data: `You received a message from ${myDomain}!`
             }
-        },
-        Subject: {
-            Charset: 'UTF-8',
-            Data: `You received a message from ${myDomain}!`
-        }
         }
     }
 }

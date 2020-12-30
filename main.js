@@ -1,4 +1,4 @@
-const url = 'https://sv0i991s0e.execute-api.us-east-2.amazonaws.com/dev/email/send'
+const url = ''
 const submit = document.getElementById('submit')
 
 var app = new Vue({
@@ -82,8 +82,12 @@ var app = new Vue({
                 email: app.email.value,
                 message: app.message.value.replace(/[|&;$%@"<>()+,]/g, '') // Strips out too much
             }
+            console.log(payload, url)
             post(url, payload, function (err,res)  {
-                if (err) { return error(err) }
+                if (err) { 
+                    console.log(err)
+                    return error(err) 
+                }
                 success()
             })
         }
