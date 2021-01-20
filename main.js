@@ -1,4 +1,4 @@
-const url = ''
+const url = '';
 const submit = document.getElementById('submit')
 
 var app = new Vue({
@@ -15,7 +15,7 @@ var app = new Vue({
             errorMessage: '',
             value: ''
         },
-        message: {
+        content: {
             error: false,
             errorMessage: '',
             value: ''
@@ -46,9 +46,9 @@ var app = new Vue({
                 this.email.errorMessage = this.errors[2];
                 this.errorCount++;
             }
-            if (!this.message.value) {
-                this.message.error = true;
-                this.message.errorMessage = this.errors[0];
+            if (!this.content.value) {
+                this.content.error = true;
+                this.content.errorMessage = this.errors[0];
                 this.errorCount++;
 
             }
@@ -70,8 +70,8 @@ var app = new Vue({
             this.name.errorMessage = '';
             this.email.error = false;
             this.email.errorMessage = '';
-            this.message.error = false;
-            this.message.errorMessage = '';
+            this.content.error = false;
+            this.content.errorMessage = '';
         },
         submit() {
             app.toast = 'Sending';
@@ -80,12 +80,11 @@ var app = new Vue({
             const payload = {
                 name: app.name.value,
                 email: app.email.value,
-                message: app.message.value.replace(/[|&;$%@"<>()+,]/g, '') // Strips out too much
+                content: app.content.value.replace(/[|&;$%@"<>()+,]/g, '') // Strips out too much
             }
-            console.log(payload, url)
             post(url, payload, function (err,res)  {
                 if (err) { 
-                    console.log(err)
+                    console.error(err)
                     return error(err) 
                 }
                 success()
@@ -115,11 +114,11 @@ function success() {
     }, 2000);
     app.name.value = '';
     app.email.value = '';
-    app.message.value = '';
+    app.content.value = '';
 }
 function error (err) {
     app.toast = 'There was a problem submitting your message.';
     submit.disabled = false;
-    console.log(err);
+    console.error(err);
 }
 

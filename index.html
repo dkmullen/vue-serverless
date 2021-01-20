@@ -22,14 +22,16 @@
               <input type="email" name="email" v-model="email.value" required>
               <div class="error-message">{{ email.errorMessage }}</div>
             </div>
-            <div class="field" v-bind:class="{ error: message.error }">
+            <div class="field" v-bind:class="{ error: content.error }">
                 <label>Message</label>
-                <textarea id="message" v-model="message.value" required>{{ message }}</textarea>
-                <div class="error-message">{{ message.errorMessage }}</div>
+                <textarea id="content" v-model="content.value" required>{{ content }}</textarea>
+                <div class="error-message">{{ content.errorMessage }}</div>
               </div>
             <button class="ui button" type="submit" id="submit" @click.prevent="checkform">Submit</button>
             <div id="toast">{{ toast }}</div>
           </form>
+          <p>This serverless contact form (built with Vue) uses AWS Lambda and AWS Simple Email Service 
+            (<a href="https://github.com/dkmullen/vue-serverless" target="_blank">Github</a>).</p>
     </section>
     <script type="text/javascript" src="main.js"></script>
 </body>
